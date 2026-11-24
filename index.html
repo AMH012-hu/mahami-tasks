@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مهامي</title>
+<meta name="description" content="تطبيق عربي لتنظيم المهام والمشاريع اليومية. بياناتك تبقى على جهازك.">
+<meta name="theme-color" content="#0f766e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مهامي">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true">✓</span><h1>مهامي</h1><span id="date" class="date"></span></div>
+    <form id="quick" class="quick" autocomplete="off">
+      <input id="q" type="text" maxlength="120" placeholder="أضف مهمة… واضغط Enter" aria-label="مهمة جديدة" enterkeyhint="done">
+      <button class="btn primary" type="submit">إضافة</button>
+    </form>
+    <div class="opts" id="opts" role="group" aria-label="خيارات المهمة الجديدة">
+      <div class="seg" id="qprio" role="radiogroup" aria-label="الأولوية"></div>
+      <button type="button" class="chip" id="qtoday" aria-pressed="false">اليوم</button>
+      <button type="button" class="chip" id="qtomorrow" aria-pressed="false">غداً</button>
+      <label class="chip datechip"><span id="qdatelabel">تاريخ</span><input type="date" id="qdate" aria-label="تاريخ الاستحقاق"></label>
+      <select id="qproj" class="chip" aria-label="المشروع"></select>
+    </div>
+  </header>
+  <main id="view" tabindex="-1"></main>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</div>
+<nav class="tabs" id="tabs" aria-label="التنقل">
+  <button data-tab="today" aria-current="page"><i>☀</i><span>اليوم</span></button>
+  <button data-tab="all"><i>☰</i><span>المهام</span></button>
+  <button data-tab="projects"><i>▦</i><span>المشاريع</span></button>
+  <button data-tab="settings"><i>⚙</i><span>الإعدادات</span></button>
+</nav>
+<dialog id="dlg" aria-labelledby="dlgtitle">
+  <form method="dialog" id="editform">
+    <h2 id="dlgtitle">تعديل المهمة</h2>
+    <label>العنوان<input id="e-title" maxlength="120" required></label>
+    <label>ملاحظات<textarea id="e-note" rows="3" maxlength="500"></textarea></label>
+    <div class="grid">
+      <label>الأولوية<select id="e-prio"></select></label>
+      <label>الاستحقاق<input type="date" id="e-date"></label>
+      <label>المشروع<select id="e-proj"></select></label>
+    </div>
+    <div class="row end">
+      <button type="button" class="btn danger" id="e-del">حذف</button>
+      <span class="sp"></span>
+      <button type="button" class="btn" id="e-cancel">إلغاء</button>
+      <button type="submit" class="btn primary" id="e-save">حفظ</button>
+    </div>
+  </form>
+</dialog>
+<script src="app.js"></script>
+</body>
+</html>
