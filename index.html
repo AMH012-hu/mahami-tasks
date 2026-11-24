@@ -16,9 +16,9 @@
 <body>
 <div id="app">
   <header class="top">
-    <div class="brand"><span class="logo" aria-hidden="true">✓</span><h1>مهامي</h1><span id="date" class="date"></span></div>
+    <div class="brand"><span class="logo" aria-hidden="true">✓</span><div><h1>مهامي <small>مساحتك للإنجاز</small></h1><span id="date" class="date"></span></div><span class="local-badge">● على جهازك</span></div>
     <form id="quick" class="quick" autocomplete="off">
-      <input id="q" type="text" maxlength="120" placeholder="أضف مهمة… واضغط Enter" aria-label="مهمة جديدة" enterkeyhint="done">
+      <input id="q" type="text" maxlength="120" placeholder="ما الذي تريد إنجازه؟" aria-label="مهمة جديدة" enterkeyhint="done">
       <button class="btn primary" type="submit">إضافة</button>
     </form>
     <div class="opts" id="opts" role="group" aria-label="خيارات المهمة الجديدة">
@@ -33,10 +33,15 @@
   <p id="toast" class="toast" role="status" aria-live="polite"></p>
 </div>
 <nav class="tabs" id="tabs" aria-label="التنقل">
-  <button data-tab="today" aria-current="page"><i>☀</i><span>اليوم</span></button>
-  <button data-tab="all"><i>☰</i><span>المهام</span></button>
-  <button data-tab="projects"><i>▦</i><span>المشاريع</span></button>
-  <button data-tab="settings"><i>⚙</i><span>الإعدادات</span></button>
+<div class="nav-brand"><span class="logo">✓</span><b>مهامي</b><small>خطّط. ركّز. أنجز.</small></div>
+<button data-tab="today" aria-current="page"><i>◈</i><span>مساحة اليوم</span></button>
+<button data-tab="calendar"><i>▦</i><span>المخطط</span></button>
+<button data-tab="all"><i>☰</i><span>كل المهام</span></button>
+<button data-tab="board"><i>▥</i><span>لوحة العمل</span></button>
+<button data-tab="projects"><i>◇</i><span>المشاريع</span></button>
+<button data-tab="focus"><i>◷</i><span>التركيز</span></button>
+<button data-tab="settings"><i>⚙</i><span>الإعدادات</span></button>
+<div class="nav-foot">خطوة صغيرة، كل يوم.<br><span>بيانات محلية · يعمل دون إنترنت</span></div>
 </nav>
 <dialog id="dlg" aria-labelledby="dlgtitle">
   <form method="dialog" id="editform">
@@ -44,11 +49,19 @@
     <label>العنوان<input id="e-title" maxlength="120" required></label>
     <label>ملاحظات<textarea id="e-note" rows="3" maxlength="500"></textarea></label>
     <div class="grid">
+<label>وقت البداية<input type="time" id="e-time"></label>
+<label>المدة بالدقائق<input type="number" min="5" max="720" step="5" id="e-duration"></label>
+<label>التكرار<select id="e-repeat"><option value="">لا يتكرر</option><option value="daily">يومياً</option><option value="weekly">أسبوعياً</option><option value="monthly">شهرياً</option></select></label>
+<label>الحالة<select id="e-status"><option value="todo">لم تبدأ</option><option value="doing">قيد التنفيذ</option></select></label>
       <label>الأولوية<select id="e-prio"></select></label>
       <label>الاستحقاق<input type="date" id="e-date"></label>
       <label>المشروع<select id="e-proj"></select></label>
     </div>
-    <div class="row end">
+    <label>خطوات المهمة، كل خطوة في سطر<textarea id="e-subtasks" rows="3" maxlength="2000" placeholder="قسّم المهمة لخطوات صغيرة"></textarea></label>
+<div id="subtask-checks"></div>
+<div class="row"><button type="button" class="btn" id="e-calendar">إرسال إلى Google Calendar ↗</button><button type="button" class="btn" id="e-focus">جلسة تركيز</button></div>
+<p class="note">الإرسال يفتح مسودة موعد لتراجعها وتحفظها بنفسك. ليس مزامنة.</p>
+<div class="row end">
       <button type="button" class="btn danger" id="e-del">حذف</button>
       <span class="sp"></span>
       <button type="button" class="btn" id="e-cancel">إلغاء</button>
@@ -56,6 +69,7 @@
     </div>
   </form>
 </dialog>
+<script src="ical.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
